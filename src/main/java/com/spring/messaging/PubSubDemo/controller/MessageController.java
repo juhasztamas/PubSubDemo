@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,11 +21,7 @@ public class MessageController {
     private MessageService messageService;
 
     @PostMapping
-    public ResponseEntity publish(@RequestBody Message message) {
-        if (Objects.isNull(message.getContent())) {
-            log.error("Message content is missing");
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity publish(@Valid @RequestBody Message message) {
         log.info("Publishing a message [{}]", message.getContent());
         messageService.save(message);
         return ResponseEntity.accepted().build();
