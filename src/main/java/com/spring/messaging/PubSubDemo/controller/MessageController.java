@@ -22,17 +22,18 @@ public class MessageController {
     @PostMapping
     public ResponseEntity publish(@RequestBody Message message) {
         if (Objects.isNull(message.getContent())) {
+            log.error("Message content is missing");
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         log.info("Publishing a message [{}]", message.getContent());
         messageService.save(message);
-        return new ResponseEntity(message.getContent(), HttpStatus.ACCEPTED);
+        return ResponseEntity.accepted().build();
     }
 
     @GetMapping
-    public ResponseEntity getAll() {
+    public ResponseEntity<List<Message>> getAll() {
         log.info("Retrieving all stored messages");
         final List<Message> result = messageService.getAll();
-        return new ResponseEntity(result, HttpStatus.OK);
+        return ResponseEntity.ok(result);
     }
 }
