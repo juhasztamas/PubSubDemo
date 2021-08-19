@@ -2,6 +2,7 @@ package com.spring.messaging.PubSubDemo.controller;
 
 import com.spring.messaging.PubSubDemo.model.Message;
 import com.spring.messaging.PubSubDemo.service.MessageService;
+import com.spring.messaging.PubSubDemo.service.PublisherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,9 +21,13 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private PublisherService publisherService;
+
     @PostMapping
     public ResponseEntity publish(@Valid @RequestBody Message message) {
         log.info("Publishing a message [{}]", message.getContent());
+        publisherService.publish(message.getContent());
         messageService.save(message);
         return ResponseEntity.accepted().build();
     }
