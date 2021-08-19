@@ -1,12 +1,12 @@
 package com.spring.messaging.PubSubDemo.controller;
 
+import com.spring.messaging.PubSubDemo.model.Message;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestController
 @Slf4j
@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class MessageController {
 
     @PostMapping
-    public ResponseEntity publish() {
-        log.info("Publishing a message");
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+    public ResponseEntity publish(@RequestBody Message message) {
+        if (Objects.isNull(message.getContent())) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        log.info("Publishing a message [{}]", message.getContent());
+        return new ResponseEntity(message.getContent(), HttpStatus.ACCEPTED);
     }
 
     @GetMapping
