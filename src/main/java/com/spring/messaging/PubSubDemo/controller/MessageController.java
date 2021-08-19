@@ -23,7 +23,7 @@ public class MessageController {
     public ResponseEntity publish(@RequestBody Message message) {
         if (Objects.isNull(message.getContent())) {
             log.error("Message content is missing");
-            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().build();
         }
         log.info("Publishing a message [{}]", message.getContent());
         messageService.save(message);
