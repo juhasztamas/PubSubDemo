@@ -1,5 +1,6 @@
 package com.spring.messaging.PubSubDemo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 
 import lombok.Getter;
@@ -15,6 +16,7 @@ import java.time.Instant;
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private long id;
 
     private String content;
