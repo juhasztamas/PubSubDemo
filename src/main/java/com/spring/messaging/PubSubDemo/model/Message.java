@@ -1,12 +1,12 @@
 package com.spring.messaging.PubSubDemo.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 
 @Getter
 @Entity
@@ -19,5 +19,5 @@ public class Message {
 
     private String content;
 
-    private Timestamp timestamp;
+    private Instant timestamp;
 }
