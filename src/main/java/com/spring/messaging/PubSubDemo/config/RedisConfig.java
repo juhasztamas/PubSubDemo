@@ -28,9 +28,9 @@ public class RedisConfig {
     public ChannelTopic topic() {
         return new ChannelTopic("demo-topic");
     }
+
     @Bean
-    public RedisMessageListenerContainer redisContainer(RedisConnectionFactory connectionFactory,
-                                                        MessageListenerAdapter messageListener) {
+    public RedisMessageListenerContainer redisContainer(RedisConnectionFactory connectionFactory) {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.addMessageListener(messageListener(), topic());
