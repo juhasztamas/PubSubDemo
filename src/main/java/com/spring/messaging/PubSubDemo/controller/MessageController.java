@@ -3,15 +3,14 @@ package com.spring.messaging.PubSubDemo.controller;
 import com.spring.messaging.PubSubDemo.model.Message;
 import com.spring.messaging.PubSubDemo.service.MessageService;
 import com.spring.messaging.PubSubDemo.service.PublisherService;
+import com.spring.messaging.PubSubDemo.service.WSService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @Slf4j
@@ -24,11 +23,19 @@ public class MessageController {
     @Autowired
     private PublisherService publisherService;
 
+   @Autowired
+   private WSService wsService;
+
     @PostMapping
     public ResponseEntity publish(@Valid @RequestBody Message message) {
         log.info("Publishing a message [{}]", message.getContent());
         publisherService.publish(message.getContent());
         messageService.save(message);
+        try {
+            wsService.sendMessage(message.getContent());
+        } catch (final Exception e) {
+            log.error("Cannot send message to WS", e);
+        }
         return ResponseEntity.accepted().build();
     }
 
