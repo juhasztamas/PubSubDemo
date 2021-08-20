@@ -13,8 +13,8 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 public class RedisConfig {
 
     @Bean
-    public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory connectionFactory) {
-        StringRedisTemplate redisTemplate = new StringRedisTemplate();
+    public StringRedisTemplate stringRedisTemplate(final RedisConnectionFactory connectionFactory) {
+        final var redisTemplate = new StringRedisTemplate();
         redisTemplate.setConnectionFactory(connectionFactory);
         return redisTemplate;
     }
@@ -30,8 +30,8 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisMessageListenerContainer redisContainer(RedisConnectionFactory connectionFactory) {
-        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+    public RedisMessageListenerContainer redisContainer(final RedisConnectionFactory connectionFactory) {
+        final var container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.addMessageListener(messageListener(), topic());
         return container;

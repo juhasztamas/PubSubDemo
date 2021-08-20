@@ -1,6 +1,6 @@
 package com.spring.messaging.PubSubDemo.service;
 
-import com.spring.messaging.PubSubDemo.dto.MessageRepository;
+import com.spring.messaging.PubSubDemo.repository.MessageRepository;
 import com.spring.messaging.PubSubDemo.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

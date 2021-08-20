@@ -11,7 +11,8 @@ public class PublisherService {
 
     private final ChannelTopic topic;
 
-    public PublisherService(StringRedisTemplate redisTemplate, ChannelTopic topic) {
+    public PublisherService(final StringRedisTemplate redisTemplate,
+                            final ChannelTopic topic) {
         this.redisTemplate = redisTemplate;
         this.topic = topic;
     }

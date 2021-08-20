@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -24,5 +24,5 @@ public class Message {
     @NotBlank(message = "content is mandatory")
     private String content;
 
-    private Instant timestamp;
+    private LocalDateTime timestamp;
 }

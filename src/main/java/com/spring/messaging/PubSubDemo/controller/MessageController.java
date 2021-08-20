@@ -1,5 +1,6 @@
 package com.spring.messaging.PubSubDemo.controller;
 
+import com.spring.messaging.PubSubDemo.dto.MessageDTO;
 import com.spring.messaging.PubSubDemo.model.Message;
 import com.spring.messaging.PubSubDemo.service.MessageService;
 import com.spring.messaging.PubSubDemo.service.PublisherService;
@@ -30,9 +31,15 @@ public class MessageController {
     public ResponseEntity publish(@Valid @RequestBody Message message) {
         log.info("Publishing a message [{}]", message.getContent());
         publisherService.publish(message.getContent());
+
         messageService.save(message);
         try {
-            wsService.sendMessage(message.getContent());
+            final var toSend = MessageDTO
+                    .builder()
+                    .content(message.getContent())
+                    .timeStamp(message.getTimestamp())
+                    .build();
+            wsService.sendMessage(toSend);
         } catch (final Exception e) {
             log.error("Cannot send message to WS", e);
         }

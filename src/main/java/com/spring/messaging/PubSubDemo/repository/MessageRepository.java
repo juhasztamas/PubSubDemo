@@ -1,4 +1,4 @@
-package com.spring.messaging.PubSubDemo.dto;
+package com.spring.messaging.PubSubDemo.repository;
 
 import com.spring.messaging.PubSubDemo.model.Message;
 import org.springframework.data.repository.CrudRepository;
