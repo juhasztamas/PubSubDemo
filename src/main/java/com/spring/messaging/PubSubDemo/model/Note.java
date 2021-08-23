@@ -1,30 +1,29 @@
 package com.spring.messaging.PubSubDemo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
-import java.time.LocalDateTime;
 
-@Getter
 @Entity
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Note {
+public class Note implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private long id;
 
-    @NotBlank(message = "content is mandatory")
     private String content;
 
     private String timestamp;
+
+    @JsonProperty("longest_palindrome_size")
+    private int longestPalindromeSize;
 }

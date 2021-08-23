@@ -2,7 +2,7 @@ package com.spring.messaging.PubSubDemo.controller;
 
 import com.spring.messaging.PubSubDemo.model.Note;
 import com.spring.messaging.PubSubDemo.model.Payload;
-import com.spring.messaging.PubSubDemo.service.MessageService;
+import com.spring.messaging.PubSubDemo.service.NoteService;
 import com.spring.messaging.PubSubDemo.service.PublisherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import java.util.List;
 public class MessageController {
 
     @Autowired
-    private MessageService messageService;
+    private NoteService noteService;
 
     @Autowired
     private PublisherService publisherService;
@@ -32,9 +32,10 @@ public class MessageController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Note>> getAll() {
+    public List<Note> getAll() {
         log.info("Retrieving all stored messages");
-        final List<Note> result = messageService.getAll();
-        return ResponseEntity.ok(result);
+        final List<Note> result = noteService.getAll();
+        return result;
+        //return ResponseEntity.ok(result);
     }
 }

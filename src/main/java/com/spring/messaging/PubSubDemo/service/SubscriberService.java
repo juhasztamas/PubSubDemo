@@ -19,7 +19,7 @@ public class SubscriberService implements MessageListener {
     private SimpMessagingTemplate simpMessagingTemplate;
 
     @Autowired
-    private MessageService messageService;
+    private NoteService noteService;
 
     @Autowired
     private ObjectMapper mapper;
@@ -42,12 +42,6 @@ public class SubscriberService implements MessageListener {
     }
 
     private void saveReceivedMessage(final String message) {
-        try {
-            final var note = mapper.readValue(message, Note.class);
-
-            messageService.save(note);
-        } catch (final Exception e) {
-            log.error("could not parse the message", e);
-        }
+            noteService.save(message);
     }
 }
