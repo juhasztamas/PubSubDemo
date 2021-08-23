@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/messages")
+@RequestMapping("/api/notes")
 public class MessageController {
 
     @Autowired
@@ -32,10 +32,9 @@ public class MessageController {
     }
 
     @GetMapping
-    public List<Note> getAll() {
+    public ResponseEntity<List<Note>> getAll() {
         log.info("Retrieving all stored messages");
         final List<Note> result = noteService.getAll();
-        return result;
-        //return ResponseEntity.ok(result);
+        return ResponseEntity.ok(result);
     }
 }
