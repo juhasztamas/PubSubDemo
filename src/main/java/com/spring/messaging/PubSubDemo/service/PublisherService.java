@@ -1,23 +1,35 @@
 package com.spring.messaging.PubSubDemo.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.spring.messaging.PubSubDemo.model.Payload;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class PublisherService {
 
-    private final StringRedisTemplate redisTemplate;
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
-    private final ChannelTopic topic;
+    @Autowired
+    private ChannelTopic topic;
 
-    public PublisherService(final StringRedisTemplate redisTemplate,
-                            final ChannelTopic topic) {
-        this.redisTemplate = redisTemplate;
-        this.topic = topic;
-    }
+    @Autowired
+    private ObjectMapper objectMapper;
 
-    public void publish(final String message) {
-        redisTemplate.convertAndSend(topic.getTopic(), message);
+    public void publish(final Payload message) {
+        log.info("Publishing a message with content [{}]", message.getContent());
+        String toPublish = "";
+        try {
+            toPublish = objectMapper.writeValueAsString(message);
+        } catch (final JsonProcessingException e) {
+            log.error("cannot convert message", e);
+        }
+        redisTemplate.convertAndSend(topic.getTopic(), toPublish);
     }
 }

@@ -1,10 +1,9 @@
 package com.spring.messaging.PubSubDemo.controller;
 
-import com.spring.messaging.PubSubDemo.dto.MessageDTO;
-import com.spring.messaging.PubSubDemo.model.Message;
+import com.spring.messaging.PubSubDemo.model.Note;
+import com.spring.messaging.PubSubDemo.model.Payload;
 import com.spring.messaging.PubSubDemo.service.MessageService;
 import com.spring.messaging.PubSubDemo.service.PublisherService;
-import com.spring.messaging.PubSubDemo.service.WSService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,32 +23,18 @@ public class MessageController {
     @Autowired
     private PublisherService publisherService;
 
-   @Autowired
-   private WSService wsService;
-
     @PostMapping
-    public ResponseEntity publish(@Valid @RequestBody Message message) {
+    public ResponseEntity<Void> publish(@Valid @RequestBody Payload message) {
         log.info("Publishing a message [{}]", message.getContent());
-        publisherService.publish(message.getContent());
+        publisherService.publish(message);
 
-        messageService.save(message);
-        try {
-            final var toSend = MessageDTO
-                    .builder()
-                    .content(message.getContent())
-                    .timeStamp(message.getTimestamp())
-                    .build();
-            wsService.sendMessage(toSend);
-        } catch (final Exception e) {
-            log.error("Cannot send message to WS", e);
-        }
         return ResponseEntity.accepted().build();
     }
 
     @GetMapping
-    public ResponseEntity<List<Message>> getAll() {
+    public ResponseEntity<List<Note>> getAll() {
         log.info("Retrieving all stored messages");
-        final List<Message> result = messageService.getAll();
+        final List<Note> result = messageService.getAll();
         return ResponseEntity.ok(result);
     }
 }

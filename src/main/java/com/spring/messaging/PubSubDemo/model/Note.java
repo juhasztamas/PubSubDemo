@@ -3,6 +3,7 @@ package com.spring.messaging.PubSubDemo.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
@@ -14,7 +15,8 @@ import java.time.LocalDateTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Message {
+@Builder
+public class Note {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +26,5 @@ public class Message {
     @NotBlank(message = "content is mandatory")
     private String content;
 
-    private LocalDateTime timestamp;
+    private String timestamp;
 }
