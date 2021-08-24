@@ -27,6 +27,7 @@ public class MessageController {
     private Publisher publisher;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ResponseEntity<Void> publish(@Valid @RequestBody Payload message) {
         log.info("Received a message with content[{}]", message.getContent());
         try {
