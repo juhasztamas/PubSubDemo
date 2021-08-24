@@ -13,37 +13,37 @@ public class PalindromeFinder {
         int longest = 0;
         for (int startIndex = 0; startIndex < content.length(); startIndex++) {
 
-            int palindromeSize = getLongestPalindromeSizeFromAllSubstrings(trimmed, startIndex);
+            int palindromeSize = getLongestPalindromeFromAllSubstrings(trimmed, startIndex);
             longest = Math.max(longest, palindromeSize);
         }
         return longest;
     }
 
     private String omitNumbers(final String content) {
-        final var stringBuilder = new StringBuilder();
+        final var sb = new StringBuilder();
 
         IntStream.range(0, content.length()).forEach(i -> {
             char currentChar = content.charAt(i);
             if (Character.isAlphabetic(currentChar)) {
-                stringBuilder.append(currentChar);
+                sb.append(currentChar);
             }
         });
-        return stringBuilder.toString().toLowerCase();
+        return sb.toString().toLowerCase();
     }
 
-    private int getLongestPalindromeSizeFromAllSubstrings(final String content, final int startIndex) {
+    private int getLongestPalindromeFromAllSubstrings(final String content, final int startIndex) {
         int longest = 0;
         for (int i = startIndex; i < content.length(); i++) {
             int stringSliceLength = i + 1 - startIndex;
 
-            if (isStringSlicePalindrome(content, startIndex, i)) {
+            if (isSlicePalindrome(content, startIndex, i)) {
                 longest = Math.max(longest, stringSliceLength);
             }
         }
         return longest;
     }
 
-    private boolean isStringSlicePalindrome(final String content, final int startIndex, final int endIndex) {
+    private boolean isSlicePalindrome(final String content, final int startIndex, final int endIndex) {
         final int stringSliceLength = endIndex + 1 - startIndex;
 
         for (int i = 0; i < stringSliceLength / 2; i++) {
