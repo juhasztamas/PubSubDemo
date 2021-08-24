@@ -31,7 +31,8 @@ public class PalindromeFinderTest {
                 Arguments.of("qwerty", 1),
                 Arguments.of("abba", 4),
                 Arguments.of("abrakadabra1", 3),
-                Arguments.of("abrak1adabra", 3)
+                Arguments.of("abrak1adabra", 3),
+                Arguments.of("12345", 0)
         );
     }
 }
