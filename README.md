@@ -14,7 +14,7 @@ The application then publishes these messages to a topic named `demo-topic` and 
 The consumed messages are persisted in a H2 in-memory database and pushed to a websocket, which is consumed 
 by a simple React frontend.
 
-The app furthermore provides an endpoint for retrieving all the persisted messages.
+Furthermore the app provides an endpoint for retrieving all the persisted messages.
 
 ### Start the application
 ```
@@ -29,7 +29,7 @@ docker-compose up --build
 ### Start the react frontend from the `frontend` folder
 
 ```
-npm start
+cd frontend && npm start
 ```
 * it will automatically listen to the websocket on `ws://localhost:8080/ws`
 
@@ -50,7 +50,7 @@ curl -X POST http://localhost:8080/api/notes \
 ```
 Returns:
 ```
-202 - If the requstbody is valid
+202 - If the requestbody is valid
 400 - If the request body has invalid parameters
 ```
 
