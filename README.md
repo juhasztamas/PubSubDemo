@@ -3,7 +3,7 @@
 * Docker and NodeJS installed
 
 ### Features
-The application provides an interface for submitting messages/notes in the request body in format like
+The application provides an interface for submitting messages/notes in the request body in a format like:
 ```
 {
     "content": "here goes your content",
@@ -20,14 +20,18 @@ The app furthermore provides an endpoint for retrieving all the persisted messag
 ```
 docker-compose up -d
 ```
+or
+```
+docker-compose up --build
+```
 
 
-### Start the frontend from the `frontend` folder (TODO will be added later)
+### Start the react frontend from the `frontend` folder
 
 ```
 npm start
 ```
-* it will automatically listen to websocket on `ws://localhost:8080/ws`
+* it will automatically listen to the websocket on `ws://localhost:8080/ws`
 
 ### API Docs
 
@@ -44,13 +48,23 @@ curl -X POST http://localhost:8080/api/notes \
 	"timestamp" : "2018-10-09 00:12:12+0100"
 }'
 ```
+Returns:
+```
+202 - If the requstbody is valid
+400 - If the request body has invalid parameters
+```
 
+#### Get all notes
 GET
 ```
 curl -X GET http://localhost:8080/api/notes \
   -H 'accept: application/json' \
   -H 'content-type: application/json' \
 }'
+```
+Returns
+```
+200 - With the content if there is any in the database
 ```
 
 ### Technologies used
