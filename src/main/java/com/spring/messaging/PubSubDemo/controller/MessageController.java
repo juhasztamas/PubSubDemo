@@ -27,7 +27,6 @@ public class MessageController {
     public ResponseEntity<Void> publish(@Valid @RequestBody Payload message) {
         log.info("Received a message with content[{}]", message.getContent());
         publisher.publish(message);
-
         return ResponseEntity.accepted().build();
     }
 

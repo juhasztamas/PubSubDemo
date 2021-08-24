@@ -24,12 +24,11 @@ public class Publisher {
 
     public void publish(final Payload message) {
         log.info("Publishing a message with content [{}]", message.getContent());
-        String toPublish = "";
         try {
-            toPublish = objectMapper.writeValueAsString(message);
-        } catch (final JsonProcessingException e) {
-            log.error("Cannot convert message", e);
+            final var note = objectMapper.writeValueAsString(message);
+            redisTemplate.convertAndSend(topic.getTopic(), note);
+        } catch (final Exception e) {
+            log.error("Cannot publish message", e);
         }
-        redisTemplate.convertAndSend(topic.getTopic(), toPublish);
     }
 }

@@ -34,7 +34,6 @@ public class NoteService {
                     .longestPalindromeSize(palindromSize)
                     .build();
             noteRepository.save(note);
-
         } catch (final Exception e) {
             log.error("Could note save note", e);
         }
