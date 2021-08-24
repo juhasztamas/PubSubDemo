@@ -2,6 +2,7 @@ package com.spring.messaging.PubSubDemo.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.spring.messaging.PubSubDemo.exception.PublisherException;
 import com.spring.messaging.PubSubDemo.model.Payload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class Publisher {
             redisTemplate.convertAndSend(topic.getTopic(), note);
         } catch (final Exception e) {
             log.error("Cannot publish message", e);
+            throw new PublisherException(e.getMessage());
         }
     }
 }
