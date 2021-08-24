@@ -62,5 +62,8 @@ curl -X GET http://localhost:8080/api/notes \
 ### Misc comments
 * For commit messages the semantic commits were used
   * https://www.conventionalcommits.org/en/v1.0.0/
+* All endpoints are unauthenticated
+* Basic swagger config added
+  * http://localhost:8080/swagger-ui.html/
 
 
