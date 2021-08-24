@@ -12,7 +12,7 @@ const App = () => {
   }
 
   let onMessageReceived = (msg) => {
-    console.log("messages received");
+    console.log("message received");
     console.log(msg)
     setMessages([
       ...messages,
@@ -23,14 +23,14 @@ const App = () => {
   return (
     <div>
       <SockJsClient
-        url={WEBSOCKET_URL}
-        topics={ TOPIC }
-        onConnect={onConnected}
-        onMessage={msg => onMessageReceived(msg)}
+        url = {WEBSOCKET_URL}
+        topics = {TOPIC}
+        onConnect = {onConnected}
+        onMessage = {msg => onMessageReceived(msg)}
       />
       <ul>
         {messages.map((msg, index) => (
-          <li key={index}>{ JSON.stringify( msg, null, 2 ) } </li>
+          <li key={index}>{JSON.stringify(msg, null, 2 )}</li>
         ))}
       </ul>
     </div>
