@@ -59,4 +59,8 @@ curl -X GET http://localhost:8080/api/notes \
 * Redis for the Publisher-Subcriber
 * SockJS lib on the React frontend to listen to the Websocket
 
+### Misc comments
+* For commit messages the semantic commits were used
+  * https://www.conventionalcommits.org/en/v1.0.0/
+
 
