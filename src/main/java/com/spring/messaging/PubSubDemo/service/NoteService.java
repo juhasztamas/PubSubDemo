@@ -27,7 +27,7 @@ public class NoteService {
     public void save(final String onMessage) {
         try {
             final var converted = mapper.readValue(onMessage, NoteDTO.class);
-            final int palindromSize = calculatePalindrome(converted.getContent());
+            final var palindromSize = calculatePalindrome(converted.getContent());
             final var note = Note.builder()
                     .content(converted.getContent())
                     .timestamp(converted.getTimestamp())
@@ -36,12 +36,12 @@ public class NoteService {
             noteRepository.save(note);
 
         } catch (final Exception e) {
-            log.error("could note save note", e);
+            log.error("Could note save note", e);
         }
     }
 
     public List<Note> getAll() {
-        List<Note> result = new ArrayList<Note>();
+        final List<Note> result = new ArrayList<Note>();
         noteRepository.findAll().forEach(result::add);
         return result;
     }

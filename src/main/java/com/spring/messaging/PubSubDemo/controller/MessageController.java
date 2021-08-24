@@ -3,7 +3,7 @@ package com.spring.messaging.PubSubDemo.controller;
 import com.spring.messaging.PubSubDemo.model.Note;
 import com.spring.messaging.PubSubDemo.model.Payload;
 import com.spring.messaging.PubSubDemo.service.NoteService;
-import com.spring.messaging.PubSubDemo.service.PublisherService;
+import com.spring.messaging.PubSubDemo.service.Publisher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +21,12 @@ public class MessageController {
     private NoteService noteService;
 
     @Autowired
-    private PublisherService publisherService;
+    private Publisher publisher;
 
     @PostMapping
     public ResponseEntity<Void> publish(@Valid @RequestBody Payload message) {
-        log.info("Publishing a message [{}]", message.getContent());
-        publisherService.publish(message);
+        log.info("Received a message with content[{}]", message.getContent());
+        publisher.publish(message);
 
         return ResponseEntity.accepted().build();
     }

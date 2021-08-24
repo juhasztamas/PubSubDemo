@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class PublisherService {
+public class Publisher {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -28,7 +28,7 @@ public class PublisherService {
         try {
             toPublish = objectMapper.writeValueAsString(message);
         } catch (final JsonProcessingException e) {
-            log.error("cannot convert message", e);
+            log.error("Cannot convert message", e);
         }
         redisTemplate.convertAndSend(topic.getTopic(), toPublish);
     }

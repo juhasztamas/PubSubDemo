@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 
 @Service
 @Slf4j
-public class SubscriberService implements MessageListener {
+public class Consumer implements MessageListener {
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
@@ -21,19 +21,16 @@ public class SubscriberService implements MessageListener {
     @Autowired
     private NoteService noteService;
 
-    @Autowired
-    private ObjectMapper mapper;
-
     @Override
     public void onMessage(final Message received, final byte[] bytes) {
         final var message = convertFrom(received);
-        log.info("Received message [{}]", message);
+        log.info("Consumed message [{}]", message);
         sendToWs(message);
         saveReceivedMessage(message);
     }
 
     private void sendToWs(final String message) {
-        log.info("sending message to ws [{}]", message);
+        log.info("Sending message to ws [{}]", message);
         simpMessagingTemplate.convertAndSend("/topic/messages", message);
     }
 

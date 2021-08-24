@@ -1,6 +1,6 @@
 package com.spring.messaging.PubSubDemo.config;
 
-import com.spring.messaging.PubSubDemo.service.SubscriberService;
+import com.spring.messaging.PubSubDemo.service.Consumer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 public class RedisConfig {
 
     @Autowired
-    private SubscriberService subscriberService;
+    private Consumer consumer;
 
     @Bean
     public StringRedisTemplate stringRedisTemplate(final RedisConnectionFactory connectionFactory) {
@@ -25,8 +25,7 @@ public class RedisConfig {
 
     @Bean
     public MessageListenerAdapter messageListener() {
-
-        return new MessageListenerAdapter(subscriberService);
+        return new MessageListenerAdapter(consumer);
     }
 
     @Bean
