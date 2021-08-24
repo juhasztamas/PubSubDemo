@@ -14,7 +14,6 @@ import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
@@ -71,7 +70,7 @@ public class MessageControllerTest {
     @Test
     public void getAll_shouldReturnStoredNotes() throws Exception {
         Mockito.when(noteService.getAll()).thenReturn(List.of(note()));
-        final MvcResult result = mockMvc.perform(get("/api/notes"))
+        mockMvc.perform(get("/api/notes"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("[{'content':'abrakadabra', 'timestamp':'2018-10-09 00:12:12+0100'}]"))
                 .andReturn();
