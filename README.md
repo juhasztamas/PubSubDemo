@@ -17,6 +17,10 @@ by a simple React frontend.
 Furthermore the app provides an endpoint for retrieving all the persisted messages.
 
 ### Start the application
+
+```
+mvn clean install
+```
 ```
 docker-compose up -d
 ```
