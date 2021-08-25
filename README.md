@@ -21,6 +21,7 @@ Furthermore the app provides an endpoint for retrieving all the persisted messag
 ```
 mvn clean install
 ```
+then
 ```
 docker-compose up -d
 ```
@@ -33,7 +34,15 @@ docker-compose up --build
 ### Start the react frontend from the `frontend` folder
 
 ```
-cd frontend && npm start
+cd frontend
+```
+
+```
+npm install
+```
+
+```
+npm start
 ```
 * it will automatically listen to the websocket on `ws://localhost:8080/ws`
 
